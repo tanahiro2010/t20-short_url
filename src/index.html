@@ -1,0 +1,317 @@
+<html>
+
+<head>
+    <title>t20 / リンク短縮サービス</title>
+
+    <!-- Siteの設定 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="title" content="t20 / リンク短縮サービス">
+    <meta name="description" content="簡単にURLを短縮できる無料リンク短縮サービスです。">
+
+    <!-- OG meta -->
+    <meta property="og:title" content="t20" />
+    <meta property="og:site_name" content="t20.jp">
+    <meta property="og:locale" content="ja_JP" />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="t20 / リンク短縮サービス" />
+    <meta name="twitter:description" content="簡単にURLを短縮できる無料リンク短縮サービスです。 tanahiro2010作成 運営">
+    <meta name="twitter:image:src" content="/icon.png" />
+    <meta name="twitter:site" content="t20.jp" />
+    <meta name="twitter:creator" content="@tanahiro2010" />
+
+    <!-- Apple App にする -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="application-name" content="リンク短縮-t20" />
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/icon.png">
+
+    <!-- Style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone|Monomaniac+One|Sawarabi+Gothic"
+            rel="stylesheet">
+    <link rel="stylesheet" href="./css/output.css">
+
+</head>
+
+<body class="bg-black text-white">
+<main>
+    <section id="pc-screen" class="hidden flex">
+        <div class="w-1/4"></div>
+        <div class="w-full">
+            <div class="mt-3">
+                <div class="text-3xl text-center font-sawarabi">
+                    t20 / リンク短縮サービス
+                </div>
+
+                <div class="mt-2">
+                    <div class="flex">
+                        <div class="w-1/6"></div>
+                        <div class="w-full">
+                            このリンク短縮サービスは、ドメイン契約の都合上2025/12/31にサービス終了します<br>
+                            ドメイン更新料の寄付はいつでも受け付けていますのでもし「まだ使用したい」と思う方がいらっしゃいましたら下のリンクまで寄付お願いします<br>
+                            <div class="text-center text-blue-600 underline">
+                                <a href="https://qr.paypay.ne.jp/p2p01_p5U4dyn1Zx9OdIpY"
+                                   class="hover:text-blue-400">PayPayで寄付</a><br>
+                                <a href="https://paypal.me/tanahiro2010" class="hover:text-blue-400">PayPalで寄付
+                                    (ドメイン支払いに使えるため推奨)</a><br>
+                                <a href="https://kakuyomu.jp/users/tanahiro2010"
+                                   class="hover:text-blue-400">カクヨムからギフト送信で寄付</a>
+                            </div>
+                        </div>
+                        <div class="w-1/6"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-slate-900 shadow-md rounded rounded-2xl">
+                <input type="hidden" name="csrf-token" value="">
+
+                <div class="text-3xl font-momomanic text-center">
+                    リンク短縮
+                </div>
+
+                <div class="flex">
+                    <div class="w-1/4"></div>
+                    <div class="w-full font-momomanic items-center justify-between py-8">
+                        <div class="container mt-2 flex text-2xl items-center justify-between">
+                            ID:
+                            <input type="text" name="id" id="pc-id-cre"
+                                   class="mt-1 border rounded w-full text-black w-3/4" placeholder=" t20.jp/〇〇"
+                                   required>
+                        </div>
+
+                        <div class="container flex text-2xl items-center justify-between">
+                            URL:
+                            <input type="url" name="url" id="pc-url-cre" class="mt-2 border rounded w-full text-black w-3/4"
+                                   placeholder=" URL" required>
+                        </div>
+
+                        <div class="container mt-2 flex text-2xl items-center justify-between">
+                            Password:
+                            <input type="password" name="password" id="pc-password-cre"
+                                   class="mt-1 border rounded w-full text-black w-3/4" placeholder=" 削除Password" required>
+                        </div>
+
+                        <div class="hidden container mt-2 text-2xl items-center justify-between text-blue-400" id="pc-success-cre">
+                            リンクの作成に成功しました<br>
+                            URL: <a id="created-url-pc" href=""></a>
+                        </div>
+
+                        <div class="hidden container mt-2 text-2xl items-center justify-between text-red-600" id="pc-fail-cre">
+                            リンクの作成に失敗しました<br>
+                            そのIDは使われている可能性がございます
+                        </div>
+
+                        <div class="mt-2 text-center items-center">
+                            <button class="border border-2xl rounded py-2 px-4 bg-blue-600 hover:bg-blue-900"
+                                    id="pc-create">作成</button>
+                        </div>
+                    </div>
+
+
+                    <div class="w-1/4"></div>
+                </div>
+
+
+            </div>
+
+            <div class="mt-4 bg-slate-900 shadow-md rounded rounded-2xl">
+
+                <input type="hidden" name="csrf-token" value="">
+
+                <div class="text-3xl font-momomanic text-center">
+                    リンク削除
+                </div>
+
+                <div class="flex">
+                    <div class="w-1/4"></div>
+                    <div class="w-full font-momomanic item-center justify-between py-8">
+
+                        <div class="container mt-2 flex text-2xl item-center justify-between">
+                            ID:
+                            <input type="text" name="id" id="pc-id-del" class="mt-1 border rounded w-full text-black w-3/4"
+                                   placeholder=" t20.jp/〇〇" required>
+                        </div>
+
+                        <div class="container mt-2 flex text-2xl item-center justify-between">
+                            Password:
+                            <input type="password" name="password" id="pc-password-del"
+                                   class="mt-1 border rounded w-full text-black w-3/4" placeholder="" required>
+                        </div>
+
+                        <div class="hidden container mt-2 text-2xl items-center justify-between text-blue-400" id="pc-success-del">
+                            リンクの削除に成功しました
+                        </div>
+
+                        <div class="hidden container mt-2 text-2xl items-center justify-between text-red-600" id="pc-fail-del">
+                            リンクの削除に失敗しました<br>
+                            そのIDは使われていないか、削除パスワードが間違っている可能性がございます
+                        </div>
+
+                        <div class="mt-2 text-center items-center">
+                            <button class="border border-2xl rounded py-2 px-4 bg-blue-600 hover:bg-blue-900"
+                                    id="pc-delete">削除</button>
+                        </div>
+                    </div>
+
+
+                    <div class="w-1/4"></div>
+                </div>
+            </div>
+
+
+            <div class="mt-6 text-center">
+                <!-- admax -->
+                <script src="https://adm.shinobi.jp/s/830836a2ba36a143c01bc82bba4a3855"></script>
+                <!-- admax -->
+            </div>
+        </div>
+        <div class="w-1/4"></div>
+
+
+    </section>
+
+    <section id="phone-screen" class="hidden flex">
+        <div class="w-1/4"></div>
+        <div class="w-full">
+            <div class="header mt-3">
+                <div class="text-3xl text-center font-sawarabi">
+                    t20 / リンク短縮
+                </div>
+
+                <div class="mt-2">
+                    このリンク短縮サービスは、ドメイン契約の都合上2025/12/31にサービス終了します<br>
+                    ドメイン更新料の寄付はいつでも受け付けていますのでもし「まだ使用したい」と思う方がいらっしゃいましたら下のリンクまで寄付お願いします<br>
+                    <div class="text-blue-600 underline">
+                        <a href="https://qr.paypay.ne.jp/p2p01_p5U4dyn1Zx9OdIpY"
+                           class="hover:text-blue-400">・PayPayで寄付</a><br>
+                        <a href="https://paypal.me/tanahiro2010" class="hover:text-blue-400">・PayPalで寄付
+                            (ドメイン支払いに使えるため推奨)</a><br>
+                        <a href="https://kakuyomu.jp/users/tanahiro2010"
+                           class="hover:text-blue-400">・カクヨムからギフト送信で寄付</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main mt-2 text-center">
+                <div class="mt-4 bg-slate-900 shadow-md rounded rounded-2xl">
+                    <div class="text-3xl font-momomanic text-center">
+                        リンク短縮
+                    </div>
+
+                    <div class="flex">
+                        <div class="w-1/6"></div>
+                        <div class="w-full font-momomanic items-center justify-between py-8">
+                            <div class="container text-2xl items-center justify-between">
+                                URL<br>
+                                <input type="url" name="url" id="ph-url-cre" class="mt-2 border rounded w-full text-black"
+                                       placeholder=" URL" required>
+                            </div>
+
+                            <div class="container mt-2  text-2xl items-center justify-between">
+                                ID<br>
+                                <input type="text" name="id" id="ph-id-cre"
+                                       class="mt-1 border rounded w-full text-black" placeholder=" t20.jp/〇〇" required>
+                            </div>
+
+                            <div class="container mt-2 text-2xl items-center justify-between">
+                                Password<br>
+                                <input type="password" name="password" id="ph-password-cre" class="mt-1 border rounded w-full text-black"
+                                       placeholder=" 削除Password" required>
+                            </div>
+
+                            <div class="hidden container mt-2 text-2xl items-center justify-between text-blue-400" id="ph-success-cre">
+                                リンクの作成に成功しました<br>
+                                URL: <a id="created-url-ph" href=""></a>
+                            </div>
+ 
+                            <div class="hidden container mt-2 text-2xl items-center justify-between text-red-600" id="ph-fail-cre">
+                                リンクの作成に失敗しました<br>
+                                そのIDは使われている、パラメーターがすべて入力されていないなどの可能性がございます
+                            </div>
+
+                            <div class="mt-2 text-center items-center">
+                                <button class="border border-2xl rounded py-2 px-4 bg-blue-600 hover:bg-blue-900"
+                                        id="ph-create">作成</button>
+                            </div>
+                        </div>
+
+
+                        <div class="w-1/6"></div>
+                    </div>
+
+                </div>
+
+                <div class="mt-4 bg-slate-900 shadow-md rounded rounded-2xl">
+
+                    <input type="hidden" name="csrf-token" value="">
+
+                    <div class="text-3xl font-momomanic text-center">
+                        リンク削除
+                    </div>
+
+                    <div class="flex">
+                        <div class="w-1/6"></div>
+                        <div class="w-full font-momomanic item-center justify-between py-8">
+
+                            <div class="container mt- text-2xl item-center justify-between">
+                                ID<br>
+                                <input type="text" name="id" id="ph-id-del" class="mt-1 border rounded w-full text-black"
+                                       placeholder=" t20.jp/〇〇" required>
+                            </div>
+
+                            <div class="container mt-2 text-2xl item-center justify-between">
+                                Password<br>
+                                <input type="password" name="password" id="ph-password-del" class="mt-1 border rounded w-full text-black"
+                                       placeholder=" 削除Password" required>
+                            </div>
+
+                            <div class="hidden container mt-2 text-2xl items-center justify-between text-blue-400" id="ph-success-del">
+                                リンクの削除に成功しました
+                            </div>
+
+                            <div class="hidden container mt-2 text-2xl items-center justify-between text-red-600" id="ph-fail-del">
+                                リンクの削除に失敗しました<br>
+                                そのIDは使われていないか、削除パスワードが間違っている可能性がございます
+                            </div>
+
+                            <div class="mt-2 text-center items-center">
+                                <button class="border border-2xl rounded py-2 px-4 bg-blue-600 hover:bg-blue-900"
+                                        id="ph-delete">削除</button>
+                            </div>
+                        </div>
+
+
+                        <div class="w-1/6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-1/4"></div>
+    </section>
+</main>
+
+<div class="mt-6">
+    <div class="text-center">
+        <!-- admax -->
+        <!-- <script src="https://adm.shinobi.jp/s/5472191374c213cde28c6e1c8b9aa3e9"></script> -->
+        <!-- admax -->
+    </div>
+</div>
+</body>
+
+<script src="./js/var.js"></script>
+<script src="./js/allHidden.js"></script>
+<script src="./js/create.js"></script>
+<script src="./js/delete.js"></script>
+<script src="./js/isMobile.js"></script>
+<script src="./js/script.js"></script>
+
+</html>

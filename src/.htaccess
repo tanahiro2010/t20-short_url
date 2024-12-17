@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# 実際のファイルやディレクトリが存在しない場合にのみ適用
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# t20.jp/〇〇 を内部的に t20.jp/redirect?id=〇〇 にマッピング
+RewriteRule ^([^/]+)$ /redirect?id=$1 [L]
